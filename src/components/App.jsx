@@ -1,15 +1,15 @@
 import {  Routes, Route} from "react-router-dom";
-import { Home } from "./Home/Home";
-import { Catalog } from "./Catalog/Catalog";
-import { Favorites } from "./Favorites/Favorites";
+import { HomePage } from "Pages/HomePage";
+import { CatalogPage } from "Pages/CatalogPage";
+import { FavoritesPage } from "Pages/FavoritesPage";
 
 export const App = () => {
 
   return (
     <Routes>
-      <Route index path="/" element={<Home/>} />
-      <Route path="/catalog" element={<Catalog/>} />
-      <Route path="/favorites" element={<Favorites/>} />
+      <Route index path="/" element={<HomePage/>} />
+      <Route path="/catalog" element={<CatalogPage/>} />
+      <Route path="/favorites" element={<FavoritesPage/>} />
   
   </Routes>
   )
