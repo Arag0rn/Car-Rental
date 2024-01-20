@@ -35,7 +35,7 @@ export const Catalog = ( ) => {
 
     const cars = useSelector(filteredCars);
 
-    console.log(cars.rentalPrice);
+    console.log(cars);
   
     const dispatch = useDispatch();
 

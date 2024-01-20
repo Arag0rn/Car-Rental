@@ -5,6 +5,8 @@ export const selectCars = state => state.cars.cars;
 
 export const selectFilter = state => state.filter;
 
+export const selectPriceFilter = state => state.price_filter;
+
 export const selectPrices = createSelector(
 
     [selectCars],
@@ -15,12 +17,11 @@ export const selectPrices = createSelector(
 
   export const filteredCars = createSelector(
 
-    [selectCars, selectFilter, selectPrices],
-    (cars, filter, prices) => {
+    [selectCars, selectFilter, selectPriceFilter],
+    (cars, filter, price_filter) => {
       return cars.filter(car => 
         car.make.toLowerCase().includes(filter.toLowerCase())
-        &&
-        prices.includes(car.rentalPrice)
-        );
+        && car.rentalPrice.includes(price_filter)
+        )
     }
   );

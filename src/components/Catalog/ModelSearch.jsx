@@ -76,7 +76,7 @@ export default function ModelSearchPlaceholder() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
+      <FormControl className='' sx={{ m: 1, width: 300, mt: 3 }}>
         <Select
           displayEmpty
           value={personName}

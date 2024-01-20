@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSelector, useDispatch } from "react-redux";
 import { selectPrices } from '../../Redux/selector';
-import { onFilter } from '../../Redux/Filter/Filterslice';
+import { onPriceFilter } from '../../Redux/Filter/PriceFilter';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -41,7 +41,7 @@ export default function PricesSelectPlaceholder() {
     const {
       target: { value },
     } = event;
-    dispatch(onFilter(value));
+    dispatch(onPriceFilter(value));
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -50,7 +50,7 @@ export default function PricesSelectPlaceholder() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
+      <FormControl className='' sx={{ m: 1, width: 300, mt: 3 }}>
         <Select
           displayEmpty
           value={personName}
@@ -58,7 +58,7 @@ export default function PricesSelectPlaceholder() {
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
-              return <em>Placeholder</em>;
+              return <em>Price/ 1 hour</em>;
             }
 
             return selected.join(', ');
