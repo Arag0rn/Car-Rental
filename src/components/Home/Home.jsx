@@ -9,6 +9,7 @@ export const Home = () => {
 </div>
 
 <Link to="/catalog">Catalog</Link>
+<Link to="/favotites">Catalog</Link>
         </>
     )
 }

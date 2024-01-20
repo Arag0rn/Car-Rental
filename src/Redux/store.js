@@ -1,6 +1,8 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import { carsReducer } from "./Carslice";
+import { favoriteReducer } from "./Favorites/FavoritesSlice";
+import { filterReducer } from "./Filter/Filterslice";
 
 
 
@@ -9,6 +11,7 @@ import { carsReducer } from "./Carslice";
 export const store = configureStore ({
   reducer:{
   cars: carsReducer,
-//   filter: filterReducer
+  favorites: favoriteReducer,
+  filter: filterReducer,
   },
 });

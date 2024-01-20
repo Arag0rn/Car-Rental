@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCars } from "./operation";
 import { showNotification } from 'components/notifications';
+import { addMoreCars } from './actions';
 
 const initialState = {
   cars: [],
@@ -28,6 +29,9 @@ const carsSlice = createSlice({
       showNotification('Error fetching cars!');
       state.isLoading = false;
       state.error = action.error.message || 'Unknown error';
+    });
+    builder.addCase(addMoreCars, (state, action) => {
+      state.cars = [...state.cars, ...action.payload];
     });
   },
 });

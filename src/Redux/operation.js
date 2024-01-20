@@ -15,6 +15,17 @@ export const fetchCars = createAsyncThunk(
     }
     );
 
+    const fetchData = async () => {
+      try {
+        const response = await fetch('../components/Catalog/makes.json');
+        return response.data
+      } catch (error) {
+        console.error('Error fetching JSON:', error);
+      }
+    };
+
+    fetchData();
+
 // export const addContscts = createAsyncThunk(
 //   'contacts/addContscts',
 //   async function(contact, {rejectWithValue}) {
