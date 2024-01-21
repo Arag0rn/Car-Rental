@@ -115,7 +115,7 @@ export const Catalog = ( ) => {
         <Heart
           id={nanoid()}
           onClick={() => handleAddFavorite(car)}
-          className={`absolute top-[14px] right-[14px] cursor-pointer stroke-white hover:stroke-blue-600 hover:fill-blue-600 ${fav.some(favCar => favCar.id === car.id) ? 'fill-blue-600 stroke-inherit' : ''}`}
+          className={`absolute top-[14px] right-[14px] cursor-pointer stroke-white hover:stroke-blue-600 hover:fill-blue-600 ${fav.some(favCar => favCar.id === car.id) ? 'fill-blue-600 stroke-blue-600' : ''}`}
         />
         </div>
         <div className="mt-[20px]" >

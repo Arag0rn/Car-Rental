@@ -14,7 +14,7 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+      width: 125,
     },
   },
 };
@@ -49,8 +49,9 @@ export default function PricesSelectPlaceholder() {
   };
 
   return (
-    <div>
-      <FormControl  sx={{ m: 1, width: 300, mt: 3 }}>
+    <div className="relative">
+      <div className="absolute top-0 left-0 text-[14px] text-gray-300">Price/ 1 hour</div>
+      <FormControl  sx={{ m: 1, width: 125, mt: 3 }}>
         <Select
           displayEmpty
           value={personName}

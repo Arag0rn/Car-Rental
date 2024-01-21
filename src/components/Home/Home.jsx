@@ -1,16 +1,13 @@
 import { Container } from "components/Container"
-
+import imgSrc from "../Home/img.jpg";
 
 export const Home = () => {
     return (
         <>
         <Container>
-        <h1 className="text-white">Home</h1>
-        <div className="text-blue-500 font-sans font-medium text-base leading-6">
-            This is a CAR RENT!
-          <car/> 
+            <img src={imgSrc} alt="Car" />
 
-            </div>
+        
         </Container>
         </>
     )

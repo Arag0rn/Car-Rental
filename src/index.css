@@ -8,3 +8,8 @@
 body {
     font-family: 'Manrope', sans-serif;
   }
+
+  .active {
+    font-weight: bold;
+    color: yellow; 
+  }

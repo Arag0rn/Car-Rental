@@ -14,7 +14,7 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+      width: 224,
       
     },
   },
@@ -77,10 +77,10 @@ export default function ModelSearchPlaceholder() {
 
   return (
     <div className="relative">
-      <div className="absolute top-0 left-0">Car brand</div>
-      <FormControl  sx={{ m: 1, width: 300, mt: 3 }}>
+      <div className="absolute top-0 left-0 text-[14px] text-gray-300">Car brand</div>
+      <FormControl  sx={{ m: 1, width: 224, mt: 3 }}>
         <Select
-          className="bg-slate-100"
+          className="bg-slate-100 rounded-[12px]"
           displayEmpty
           value={personName}
           onChange={handleChange}
