@@ -31,18 +31,10 @@ export const Catalog = ( ) => {
   };
 
 
-  const handleAddFavorite = (car, event) => {
-    const heart = event.currentTarget;
-  
-    // Toggle the 'fill-blue-500' class
-    heart.classList.add('fill-blue-500');
-  
+  const handleAddFavorite = (car) => {
     dispatch(addFavorite(car));
-  
     const isFavorite = fav.some((favCar) => favCar.id === car.id);
-  
     if (isFavorite) {
-      heart.classList.remove('fill-blue-500');
       dispatch(removeFavorite(car));
     } else {
       setFavorCars([...favorCars, car]);
@@ -120,7 +112,11 @@ export const Catalog = ( ) => {
     {cars.map((car) => (
       <li className="flex flex-col w-[300px] h-auto" key={car.id}>
         <div className="relative w-[300px] h-[268px] rounded-[14px] bg-cover bg-center no-repeat"  style={{ backgroundImage: `url(${car.img})` }}>
-        <Heart id={ nanoid()} onClick={(event) => handleAddFavorite(car, event)} className="absolute top-[14px] right-[14px] cursor-pointer stroke-white hover:stroke-blue-600 hover:fill-blue-600"/>
+        <Heart
+          id={nanoid()}
+          onClick={() => handleAddFavorite(car)}
+          className={`absolute top-[14px] right-[14px] cursor-pointer stroke-white hover:stroke-blue-600 hover:fill-blue-600 ${fav.some(favCar => favCar.id === car.id) ? 'fill-blue-600 stroke-inherit' : ''}`}
+        />
         </div>
         <div className="mt-[20px]" >
           <div className="flex justify-between">

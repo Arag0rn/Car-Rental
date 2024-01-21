@@ -2,7 +2,6 @@ import { createSelector } from "@reduxjs/toolkit";
 
 export const selectCars = state => state.cars.cars;
 
-
 export const selectFilter = state => state.filter;
 
 export const selectPriceFilter = state => state.price_filter;
