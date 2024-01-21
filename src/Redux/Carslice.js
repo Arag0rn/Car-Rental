@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCars } from "./operation";
-import { showNotification } from 'components/notifications';
 import { addMoreCars } from './actions';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const initialState = {
   cars: [],
@@ -19,14 +19,14 @@ const carsSlice = createSlice({
     });
 
     builder.addCase(fetchCars.fulfilled, (state, action) => {
-      showNotification('Cars were successfully fetched!');
+      Notify.success('Cars were successfully fetched!');
       state.cars = action.payload;
       state.isLoading = false;
       state.error = null;
     });
 
     builder.addCase(fetchCars.rejected, (state, action) => {
-      showNotification('Error fetching cars!');
+      Notify.failure('Error fetching cars!');
       state.isLoading = false;
       state.error = action.error.message || 'Unknown error';
     });
