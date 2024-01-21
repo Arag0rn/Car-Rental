@@ -5,6 +5,7 @@ import { ReactComponent as Heart } from "../Favorites/can-trash.svg";
 import { ModalContent } from "components/Catalog/Modal.jsx";
 import { useState } from "react";
 import { removeFavorite } from "../../Redux/Favorites/FavoritesSlice.js";
+import imgSrc from "../Favorites/favorite.png";
 
 
 export const Favorites = () => {
@@ -67,47 +68,52 @@ const AddressDetails = ({ address, rentalCompany }) => {
 
     return (
         <>
-
+<div className="pb-[150px]">
         <Container>
-    
-         <ul className="mt-[20px] flex flex-wrap gap-x-[25px] gap-y-[50px]">
+
+        {fav.length > 0 ? (
+  <ul className="mt-[20px] pt-[208px] flex flex-wrap gap-x-[25px] gap-y-[50px]">
     {fav.map((car) => (
+      <li className="flex flex-col w-[300px] h-auto" key={car.id}>
+        <div className="relative w-[300px] h-[268px] rounded-[14px] bg-cover bg-center no-repeat" style={{ backgroundImage: `url(${car.img})` }}>
+          <Heart onClick={() => {handleRemoveFavorite(car)}} className={`absolute top-[14px] right-[14px] cursor-pointer hover:fill-blue-600`}/>
+        </div>
+        <div className="mt-[20px]">
+          <div className="flex justify-between">
+            <h2 className="font-medium text-base leading-6">
+              {car.make}
+              <span className="text-blue-500 ml-[4px] font-medium text-base leading-6">{car.model}</span>, <span>{car.year}</span>
+            </h2>
+            <span>{car.rentalPrice}</span>
+          </div>
 
-<li className="flex flex-col w-[300px] h-auto" key={car.id}>
-<div className="relative w-[300px] h-[268px] rounded-[14px] bg-cover bg-center no-repeat"  style={{ backgroundImage: `url(${car.img})` }}>
-<Heart onClick={() => {handleRemoveFavorite(car)}}   className={`absolute top-[14px] right-[14px] cursor-pointer`}/>
-</div>
-<div className="mt-[20px]" >
-  <div className="flex justify-between">
-    <h2 className="font-medium text-base leading-6">
-      {car.make}
-      <span className="text-blue-500 ml-[4px] font-medium text-base leading-6">{car.model}</span>, <span>{car.year}</span>
-    </h2>
-    <span>{car.rentalPrice}</span>
-  </div>
+          <AddressDetails address={car.address} rentalCompany={car.rentalCompany} type={car.type} model={car.model} />
+          <AddressDetails2 mileage={car.mileage} type={car.type} model={car.model} accessories={car.accessories} />
+        </div>
 
-  <AddressDetails address={car.address} rentalCompany={car.rentalCompany} type={car.type} model={car.model} />
-  <AddressDetails2 mileage={car.mileage} type={car.type} model={car.model} accessories={car.accessories} />
+        <button onClick={() => handleOpen(car)} className="mt-[28px] flex items-center hover:bg-blue-800 justify-center w-auto h-[44px] p-[12px] bg-blue-600 rounded-[12px] text-[14px] font-semibold leading-[20px] text-white">Learn more</button>
+      </li>
+    ))}
+  </ul>
 
-</div>
 
-<button onClick={() => handleOpen(car)} className="mt-[28px] flex items-center justify-center w-[274px] h-[44px] p-[12px] bg-blue-600 rounded-[12px] text-[14px] font-semibold leading-[20px] text-white">Learn more</button>
 
-</li>
-))}
-</ul>
-
-{selectedCar && (
-<ModalContent 
-open={open} 
-car={selectedCar}  
-onClose={() => setOpen(false)}
-addressDetails={AddressDetails}
-addressDetails2={AddressDetails2}
-/>
+) : (
+  <img className='w-full mt-[20px]' src={imgSrc} alt="Car" />
 )}
 
-  </Container>
-        </>
-    )
-}
+  {selectedCar && (
+    <ModalContent 
+      open={open} 
+      car={selectedCar}  
+      onClose={() => setOpen(false)}
+      addressDetails={AddressDetails}
+      addressDetails2={AddressDetails2}
+    />
+  )}
+</Container>
+</div>
+</>
+
+)
+  }

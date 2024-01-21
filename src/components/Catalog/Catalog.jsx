@@ -19,8 +19,9 @@ export const Catalog = ( ) => {
   const [open, setOpen] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null)
   const [favorCars, setFavorCars] = useState([]);
+  const [page, setPage] = useState(1);
 
-
+console.log();
 
   const fav = useSelector(favoriteCars);
 
@@ -44,17 +45,16 @@ export const Catalog = ( ) => {
 
     const cars = useSelector(filteredCars);
 
-    console.log(cars);
   
     const dispatch = useDispatch();
 
-    let page = 1
+
     useEffect(() => {
         dispatch(fetchCars({ page: page, limit: 12 }));
       }, [dispatch, page])
 
       const handleLoadMore = () => {
-         page++;
+        setPage(prevPage => prevPage + 1);
           dispatch(fetchCars({ page: page, limit: 12 }));
       };
       
@@ -101,6 +101,7 @@ export const Catalog = ( ) => {
 
     return (
         <>
+        <div className="pb-[150px]">
     <Container>
   
   <div className="flex justify-center gap-[10px] mt-[120px]">
@@ -133,13 +134,13 @@ export const Catalog = ( ) => {
 
         </div>
 
-        <button onClick={() => handleOpen(car)} className="mt-[28px] flex items-center justify-center w-auto h-[44px] p-[12px] bg-blue-600 rounded-[12px] text-[14px] font-semibold leading-[20px] text-white">Learn more</button>
+        <button onClick={() => handleOpen(car)} className="my-[24px] flex items-center justify-center hover:bg-blue-800 w-auto h-[44px] p-[12px] bg-blue-600 rounded-[12px] text-[14px] font-semibold leading-[20px] text-white">Learn more</button>
       
       </li>
     ))}
   </ul>
   
-  <div onClick={() => {handleLoadMore()}} className="mt-[100px] text-[16px] text-center font-semibold leading-[20px] text-blue-600 cursor-pointer">Load more</div>
+  <div onClick={() => {handleLoadMore()}} className="mt-[100px] text-[16px] text-center font-semibold leading-[20px] text-blue-600 hover:text-blue-800 cursor-pointer">Load more</div>
 
   {selectedCar && (
   <ModalContent 
@@ -152,6 +153,7 @@ export const Catalog = ( ) => {
 )}
 
 </Container>
+</div>
         </>
     )
 }

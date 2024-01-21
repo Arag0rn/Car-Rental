@@ -53,13 +53,14 @@ export default function PricesSelectPlaceholder() {
       <div className="absolute top-0 left-0 text-[14px] text-gray-300">Price/ 1 hour</div>
       <FormControl  sx={{ m: 1, width: 125, mt: 3 }}>
         <Select
+        className='bg-slate-100 rounded-[12px]'
           displayEmpty
           value={personName}
           onChange={handleChange}
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
-              return <em>Price/ 1 hour</em>;
+              return <em>To $</em>;
             }
 
             return selected.join(', ');
