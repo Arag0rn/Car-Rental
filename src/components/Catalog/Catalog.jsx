@@ -1,14 +1,15 @@
 import { Container } from "components/Container.jsx";
 import { fetchCars } from "../../Redux/operation.js";
+import { favoriteCars } from "../../Redux/Favorites/selector.js";
 import { filteredCars} from "../../Redux/selector";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ModalContent } from "./Modal.jsx";
 import { ReactComponent as Heart } from "../Catalog/heart.svg";
-import { addFavorite } from "../../Redux/Favorites/FavoritesSlice.js";
+import { addFavorite, removeFavorite } from "../../Redux/Favorites/FavoritesSlice.js";
 import ModelSearchPlaceholder from "./ModelSearch.jsx";
 import PricesSelectPlaceholder from "./PricesMenu.jsx";
-
+import { nanoid } from 'nanoid';
 
 
 
@@ -17,8 +18,11 @@ import PricesSelectPlaceholder from "./PricesMenu.jsx";
 export const Catalog = ( ) => {
   const [open, setOpen] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null)
+  const [favorCars, setFavorCars] = useState([]);
 
-  const [isFavorite, setIsFavorite] = useState(false);
+
+
+  const fav = useSelector(favoriteCars);
 
   
  const handleOpen = (car) => {
@@ -27,9 +31,22 @@ export const Catalog = ( ) => {
   };
 
 
-  const handleAddFavorite = (car) => {
+  const handleAddFavorite = (car, event) => {
+    const heart = event.currentTarget;
+  
+    // Toggle the 'fill-blue-500' class
+    heart.classList.add('fill-blue-500');
+  
     dispatch(addFavorite(car));
-    setIsFavorite(prevState => !prevState);
+  
+    const isFavorite = fav.some((favCar) => favCar.id === car.id);
+  
+    if (isFavorite) {
+      heart.classList.remove('fill-blue-500');
+      dispatch(removeFavorite(car));
+    } else {
+      setFavorCars([...favorCars, car]);
+    }
   };
 
 
@@ -39,14 +56,14 @@ export const Catalog = ( ) => {
   
     const dispatch = useDispatch();
 
-    const limit = 12
+    let page = 1
     useEffect(() => {
-        dispatch(fetchCars({ page: 1, limit: limit }));
-      }, [dispatch])
+        dispatch(fetchCars({ page: page, limit: 12 }));
+      }, [dispatch, page])
 
       const handleLoadMore = () => {
-          const nextLimit = limit + 12; 
-          dispatch(fetchCars({ page: 1, limit: nextLimit }));
+         page++;
+          dispatch(fetchCars({ page: page, limit: 12 }));
       };
       
       const trimAddress = (fullAddress) => {
@@ -94,18 +111,16 @@ export const Catalog = ( ) => {
         <>
     <Container>
   
-  <div className="flex gap-[10px] mt-[120px]">
-    <ModelSearchPlaceholder className="relative">
-    <div className="absolute top-0 right-0">Car brand</div>
-    </ModelSearchPlaceholder> 
+  <div className="flex justify-center gap-[10px] mt-[120px]">
+    <ModelSearchPlaceholder/>
     <PricesSelectPlaceholder/>
   </div>
  
-  <ul className="mt-[20px] flex justify-between flex-wrap gap-x-[29px] gap-y-[50px]">
+  <ul className="mt-[20px] flex flex-wrap gap-x-[25px] gap-y-[50px]">
     {cars.map((car) => (
-      <li className="flex flex-col w-[274px]" key={car.id}>
-        <div className="relative w-[274px] h-[268px] rounded-[14px] bg-cover bg-center no-repeat"  style={{ backgroundImage: `url(${car.img})` }}>
-        <Heart onClick={() => {handleAddFavorite(car);}} className={`absolute top-[14px] right-[14px] cursor-pointer ${isFavorite ? 'fill-red' : 'fill-white'}`}/>
+      <li className="flex flex-col w-[300px] h-auto" key={car.id}>
+        <div className="relative w-[300px] h-[268px] rounded-[14px] bg-cover bg-center no-repeat"  style={{ backgroundImage: `url(${car.img})` }}>
+        <Heart id={ nanoid()} onClick={(event) => handleAddFavorite(car, event)} className="absolute top-[14px] right-[14px] cursor-pointer stroke-white hover:stroke-blue-600 hover:fill-blue-600"/>
         </div>
         <div className="mt-[20px]" >
           <div className="flex justify-between">
@@ -122,7 +137,7 @@ export const Catalog = ( ) => {
 
         </div>
 
-        <button onClick={() => handleOpen(car)} className="mt-[28px] flex items-center justify-center w-[274px] h-[44px] p-[12px] bg-blue-600 rounded-[12px] text-[14px] font-semibold leading-[20px] text-white">Learn more</button>
+        <button onClick={() => handleOpen(car)} className="mt-[28px] flex items-center justify-center w-auto h-[44px] p-[12px] bg-blue-600 rounded-[12px] text-[14px] font-semibold leading-[20px] text-white">Learn more</button>
       
       </li>
     ))}

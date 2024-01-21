@@ -15,6 +15,7 @@ const MenuProps = {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
       width: 250,
+      
     },
   },
 };
@@ -75,9 +76,11 @@ export default function ModelSearchPlaceholder() {
 
 
   return (
-    <div>
-      <FormControl className='' sx={{ m: 1, width: 300, mt: 3 }}>
+    <div className="relative">
+      <div className="absolute top-0 left-0">Car brand</div>
+      <FormControl  sx={{ m: 1, width: 300, mt: 3 }}>
         <Select
+          className="bg-slate-100"
           displayEmpty
           value={personName}
           onChange={handleChange}
@@ -93,7 +96,7 @@ export default function ModelSearchPlaceholder() {
           inputProps={{ 'aria-label': 'Without label' }}
         >
           <MenuItem disabled value="">
-            <em>Placeholder</em>
+            <em>Enter the text</em>
           </MenuItem>
           {names.map((name) => (
             <MenuItem

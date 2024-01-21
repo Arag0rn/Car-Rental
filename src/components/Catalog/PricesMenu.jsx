@@ -50,7 +50,7 @@ export default function PricesSelectPlaceholder() {
 
   return (
     <div>
-      <FormControl className='' sx={{ m: 1, width: 300, mt: 3 }}>
+      <FormControl  sx={{ m: 1, width: 300, mt: 3 }}>
         <Select
           displayEmpty
           value={personName}
